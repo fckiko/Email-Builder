@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
 }
 
@@ -73,7 +73,7 @@
   color: #e7e7e7;
   white-space: nowrap;
   text-align: center;
-  width: 85%;
+  width: 80%;
   font: 700 16px Raleway, sans-serif;
   justify-content: space-between;
 }
@@ -124,10 +124,11 @@
   object-fit: contain;
   object-position: center;
   width: 90px;
-  padding: 8px;
+  padding: 4px 8px;
   border-radius: 4px;
   background-color: #e7e7e7;
   box-shadow: 0 0 5px 3px rgba(87, 87, 87, 0.25);
+  cursor: grab;
 }
 
 .preview-area {

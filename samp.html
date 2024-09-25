@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag and Drop Email Builder</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+
+      .builder-container {
+        display: flex;
+        width: 80%;
+        height: 80vh;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .sidebar {
+        width: 30%;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-right: 2px solid #ddd;
+      }
+
+      h3 {
+        text-align: center;
+      }
+
+      .block {
+        padding: 15px;
+        background-color: #007bff;
+        color: white;
+        margin: 10px 0;
+        text-align: center;
+        border-radius: 5px;
+        cursor: grab;
+      }
+
+      .drop-area {
+        flex: 1;
+        padding: 20px;
+        background-color: #fff;
+        border-left: 2px solid #ddd;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .dropped-item {
+        padding: 15px;
+        margin: 10px 0;
+        background-color: #e9ecef;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="builder-container">
+      <div class="sidebar">
+        <h3>Blocks</h3>
+        <div class="block" id="text-block" draggable="true">Text Block</div>
+        <div class="block" id="image-block" draggable="true">Image Block</div>
+        <div class="block" id="button-block" draggable="true">Button Block</div>
+      </div>
+
+      <div class="drop-area" id="drop-area">
+        <h3>Drag your blocks here</h3>
+      </div>
+    </div>
+
+    <script>const blocks = document.querySelectorAll('.block');
+        const dropArea = document.getElementById('drop-area');
+        
+        
+        blocks.forEach(block => {
+            block.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text', event.target.id);
+            });
+        });
+        
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+        
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            
+            const blockId = event.dataTransfer.getData('text');
+            const block = document.getElementById(blockId);
+            
+            const newBlock = document.createElement('div');
+            newBlock.classList.add('dropped-item');
+        
+            switch (blockId) {
+                case 'text-block':
+                    newBlock.innerHTML = '<p>This is a text block. Edit the text.</p>';
+                    break;
+                case 'image-block':
+                    newBlock.innerHTML = '<img src="https://via.placeholder.com/150" alt="Image Block" />';
+                    break;
+                case 'button-block':
+                    newBlock.innerHTML = '<button>Call to Action</button>';
+                    break;
+                default:
+                    break;
+            }
+            
+            dropArea.appendChild(newBlock);
+        });
+        </script>
+  </body>
+</html>
